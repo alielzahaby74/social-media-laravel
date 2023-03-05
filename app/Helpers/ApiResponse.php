@@ -12,7 +12,7 @@ class ApiResponse
     private $data;
 
 
-    public function success($message, $data = null)
+    public static function success($message, $data = null)
     {
         $response_array = [
             "message" => $message,
@@ -24,7 +24,7 @@ class ApiResponse
         return response()->json($response_array);
     }
 
-    public function failed($message, $statusCode = 500)
+    public static function failed($message, $statusCode = 500)
     {
         $response_array = [
             "message" => $message,
