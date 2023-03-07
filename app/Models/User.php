@@ -49,6 +49,10 @@ class User extends Authenticatable implements JWTSubject
             ->wherePivot('status', '=', 'accept');
     }
 
+    public function followers()
+    {
+        return $this->belongsToMany(Follower::class, 'followers', 'follow_id', 'user_id');
+    }
 // Rest omitted for brevity
 
     /**

@@ -23,7 +23,7 @@ class LikeController extends Controller
             return ApiResponse::success('likes were retrieved successfully!',
                 $this->likeService->get($post_id));
         } catch (\Exception $e) {
-            return ApiResponse::failed($e->getMessage());
+            return ApiResponse::failed($e->getMessage(), $e->getCode());
         }
     }
     public function add(LikeRequest $request)
@@ -31,7 +31,7 @@ class LikeController extends Controller
         try {
             return ApiResponse::success('like!', $this->likeService->add($request->validated()));
         } catch (\Exception $e) {
-            return ApiResponse::failed($e->getMessage());
+            return ApiResponse::failed("there's an error. try again later!", $e->getCode());
         }
     }
 
@@ -40,7 +40,15 @@ class LikeController extends Controller
         try {
             return ApiResponse::success('unlike!', $this->likeService->delete($id));
         } catch (\Exception $e) {
-            return ApiResponse::failed('failed to unlike post, try again later!');
+            return ApiResponse::failed('failed to unlike post, try again later!', $e->getCode());
+        }
+    }
+
+    public function likeStatus($post_id){
+        try {
+            return ApiResponse::success('like status received!', $this->likeService->likeStatus($post_id));
+        } catch (\Exception $e) {
+            return ApiResponse::failed($e->getMessage(), $e->getCode());
         }
     }
 }

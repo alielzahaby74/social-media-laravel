@@ -12,11 +12,11 @@ class ApiResponse
     private $data;
 
 
-    public static function success($message, $data = null)
+    public static function success($message, $data = null, $status = 200)
     {
         $response_array = [
             "message" => $message,
-            "status" => 200,
+            "status" => $status,
             "data" => $data
         ];
 

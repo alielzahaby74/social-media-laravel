@@ -41,12 +41,18 @@ Route::group([
 
 
 Route::middleware('jwt.auth')->prefix('posts')->group(function (){
+    Route::get('/', [\App\Http\Controllers\PostController::class, 'posts']);
     Route::put('add', [\App\Http\Controllers\PostController::class, 'add']);
     Route::delete('delete/{id}', [\App\Http\Controllers\PostController::class, 'delete']);
 });
 
+Route::middleware('jwt.auth')->prefix('follow')->group(function (){
+    Route::put('/{id}', [\App\Http\Controllers\FollowerController::class, 'add']);
+
+});
 Route::middleware('jwt.auth')->prefix('likes')->group(function (){
     Route::get('get/{post_id}', [\App\Http\Controllers\LikeController::class, 'get']);
     Route::put('add', [\App\Http\Controllers\LikeController::class, 'add']);
     Route::delete('delete/{id}', [\App\Http\Controllers\LikeController::class, 'delete']);
+    Route::get('like-status/{post_id}', [\App\Http\Controllers\LikeController::class, 'likeStatus']);
 });
